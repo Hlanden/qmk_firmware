@@ -109,18 +109,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // On press: tap both keys together
                 layer_on(_NO);
                 register_code(KC_RSFT);
-                register_code(KC_RCTL);
+                register_code(KC_LSFT);
                 wait_ms(20); // Short delay to ensure both are pressed
                 unregister_code(KC_RSFT);
-                unregister_code(KC_RCTL);
+                unregister_code(KC_LSFT);
             } else {
                 // On release: tap both keys together again
                 layer_off(_NO);
                 register_code(KC_RSFT);
-                register_code(KC_RCTL);
+                register_code(KC_LSFT);
                 wait_ms(20);
                 unregister_code(KC_RSFT);
-                unregister_code(KC_RCTL);
+                unregister_code(KC_LSFT);
             }
             return false; // Skip further processing of this keycode
     }
