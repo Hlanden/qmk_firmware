@@ -17,24 +17,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include "keymap_norwegian.h"
 
 enum layer_names {
     _QWERTY,
     _SYM,
     _NUM,
     _NAV,
+    _NO,
+};
+
+enum custom_keycodes {
+    TOGGLE_NO = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWERTY] = LAYOUT_split_3x6_3(
+    [_QWERTY] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       XXXXXXX,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSLS,
+       XXXXXXX,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, LSFT(KC_PSCR),                        KC_AUDIO_MUTE, KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_ESC,    MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LSFT, KC_D), MT(MOD_LCTL, KC_F),    KC_G,                         KC_H,    MT(MOD_RCTL, KC_J),MT(MOD_RSFT, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RGUI, KC_SCLN),  KC_QUOT,
+      KC_ESC,    MT(MOD_LGUI, KC_A), MT(MOD_LALT, KC_S), MT(MOD_LSFT, KC_D), MT(MOD_LCTL, KC_F),    KC_G, XXXXXXX,                         XXXXXXX, KC_H,    MT(MOD_RCTL, KC_J),MT(MOD_RSFT, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RGUI, KC_SCLN),  KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       QK_CAPS_WORD_TOGGLE,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX,   LT(_NAV, KC_SPACE),  KC_BSPC,     LT(_NUM, KC_ENTER),   LT(_SYM, KC_TAB), XXXXXXX
+                                          TOGGLE_NO,   LT(_NAV, KC_BSPC), LT(_NUM, KC_SPACE),     LT(_SYM, KC_ENTER), KC_TAB, XXXXXXX
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -45,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, MT(MOD_LALT, KC_F4), MT(MOD_LSFT, KC_F5), MT(MOD_LCTL, KC_F6), KC_F11,                      XXXXXXX,  KC_4,   MT(MOD_RSFT, KC_5), MT(MOD_RALT, KC_6), XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, KC_F1, KC_F2, KC_F3, KC_F12,                      XXXXXXX,  KC_1, KC_2, KC_3, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_F1, KC_F2, KC_F3, KC_F12,                      KC_DOT,  KC_1, KC_2, KC_3, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, _______,  XXXXXXX,     XXXXXXX,   XXXXXXX, KC_0
+                                          XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   XXXXXXX, KC_0
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -59,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     XXXXXXX, XXXXXXX, KC_EXLM,       KC_LBRC,        KC_RBRC,        KC_TILD,                                        XXXXXXX, KC_PERC,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX,   XXXXXXX,  KC_DEL,     XXXXXXX, XXXXXXX, XXXXXXX
+                                          XXXXXXX,   KC_DEL,  XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -70,6 +76,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX, KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    XXXXXXX,  KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       XXXXXXX, KC_MEDIA_PLAY_PAUSE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                 KC_HOME,        KC_PGDN,        KC_PAGE_UP,     KC_END,         XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX
+                                      //`--------------------------'  `--------------------------'
+  ),
+    [_NO] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+    XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX, XXXXXXX, NO_ARNG,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,  XXXXXXX,        XXXXXXX,        XXXXXXX,         XXXXXXX, NO_OSTR,NO_AE,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                 XXXXXXX,        XXXXXXX,        XXXXXXX,     XXXXXXX,         XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -84,3 +101,29 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
 };
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TOGGLE_NO:
+            if (record->event.pressed) {
+                // On press: tap both keys together
+                layer_on(_NO);
+                register_code(KC_RSFT);
+                register_code(KC_RCTL);
+                wait_ms(20); // Short delay to ensure both are pressed
+                unregister_code(KC_RSFT);
+                unregister_code(KC_RCTL);
+            } else {
+                // On release: tap both keys together again
+                layer_off(_NO);
+                register_code(KC_RSFT);
+                register_code(KC_RCTL);
+                wait_ms(20);
+                unregister_code(KC_RSFT);
+                unregister_code(KC_RCTL);
+            }
+            return false; // Skip further processing of this keycode
+    }
+    return true;
+}
+
